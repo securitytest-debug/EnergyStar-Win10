@@ -26,7 +26,7 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: release-win-x64
-        path: /home/runner/work/EnergyStar/EnergyStar/EnergyStar/bin/Release/net6.0/win-x64/publish/EnergyStar.exe
+        path: /home/runner/work/EnergyStar/EnergyStar/EnergyStar/bin/Release/net6.0/win-x64/publish/EnergyStar.dll
     - uses: actions/upload-artifact@v3
       with:
         name: release-win-arm64
