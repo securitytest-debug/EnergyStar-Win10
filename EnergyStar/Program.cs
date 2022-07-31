@@ -19,7 +19,7 @@ namespace EnergyStar
         private const int CtrlCloseEvent = 2;//CTRL_CLOSE_EVENT = 2;//当用户系统关闭Console时，系统会发送此信号到此   
         private const int CtrlLogoffEvent = 5;//CTRL_LOGOFF_EVENT = 5;//当用户退出系统时系统会发送这个信号给所有的Console程序。该信号不能显示是哪个用户退出。   
         private const int CtrlShutdownEvent = 6;//CTRL_SHUTDOWN_EVENT = 6;//当系统将要关闭时会发送此信号到所有Console程序   
-        bool HandlerRoutine(int ctrlType)
+        static bool HandlerRoutine(int ctrlType)
         {
             Console.WriteLine("Set    SetConsoleCtrlHandler    success!!");
             switch (ctrlType)
