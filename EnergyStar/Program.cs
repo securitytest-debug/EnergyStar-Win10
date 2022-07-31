@@ -1,9 +1,21 @@
-﻿using EnergyStar.Interop;
+using EnergyStar.Interop;
+using System.Runtime.InteropServices;
 
 namespace EnergyStar
 {
     internal class Program
-    {
+    {   
+        public delegate bool ConsoleCtrlDelegate(int CtrlType);  
+        [DllImport("kernel32.dll")]
+        private static extern bool SetConsoleCtrlHandler(ConsoleCtrlDelegate handlerRoutine, bool add);
+        static bool HandlerRoutine(int ctrlType)
+        {
+            cts.Cancel();
+            HookManager.UnsubscribeWindowEvents();
+            EnergyManager.RecoverAllUserProcesses();
+            return true;
+        }
+        
         static CancellationTokenSource cts = new CancellationTokenSource();
 
         static async void HouseKeepingThreadProc()
@@ -17,7 +29,7 @@ namespace EnergyStar
                     await houseKeepingTimer.WaitForNextTickAsync(cts.Token);
                     EnergyManager.ThrottleAllUserBackgroundProcesses();
                 }
-                catch (TaskCanceledException)
+                catch (OperationCanceledException)
                 {
                     break;
                 }
@@ -29,8 +41,8 @@ namespace EnergyStar
             // Well, this program only works for Windows Version starting with Cobalt...
             // Nickel or higher will be better, but at least it works in Cobalt
             //
-            // In .NET 5.0 and later, System.Environment.OSVersion always returns the actual OS version.
-
+            // In .NET 5.0 and later, System.Environment.OSVersion always returns the actual OS version
+            SetConsoleCtrlHandler(new ConsoleCtrlDelegate(HandlerRoutine), true);
             HookManager.SubscribeToWindowEvents();
             EnergyManager.ThrottleAllUserBackgroundProcesses();
 
@@ -41,21 +53,10 @@ namespace EnergyStar
             {
                 if (Event.GetMessage(out Win32WindowForegroundMessage msg, IntPtr.Zero, 0, 0))
                 {
-                    if (msg.Message == Event.WM_QUIT)
-                    {
-                        cts.Cancel();
-                        break;
-                    }
-
                     Event.TranslateMessage(ref msg);
                     Event.DispatchMessage(ref msg);
                 }
             }
-
-            cts.Cancel();
-            HookManager.UnsubscribeWindowEvents();
-            EnergyManager.RecoverAllUserProcesses();
-            Console.WriteLine($"bye");
         }
     }
 }
