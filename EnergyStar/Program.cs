@@ -1,4 +1,7 @@
-﻿using EnergyStar.Interop;
+using EnergyStar.Interop;
+using System;
+using System.Threading;
+using System.Diagnostics;
 
 namespace EnergyStar
 {
