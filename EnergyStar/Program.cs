@@ -3,12 +3,15 @@ using System;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Diagnostics;
+using System.Collections.Generic;  
+using System.Text;  
+
 
 namespace EnergyStar
 {
-    public delegate bool ControlCtrlDelegate(int CtrlType);  
     internal class Program
-    {        
+    {   
+        delegate bool ControlCtrlDelegate(int CtrlType);  
         [DllImport("kernel32.dll")]
         private static extern bool SetConsoleCtrlHandler(ConsoleCtrlDelegate handlerRoutine, bool add);
         private const int CtrlCEvent = 0;//CTRL_C_EVENT = 0;//一个Ctrl+C的信号被接收，该信号或来自键盘，或来自GenerateConsoleCtrlEvent    函数   
