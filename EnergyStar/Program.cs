@@ -10,6 +10,7 @@ namespace EnergyStar
         private static extern bool SetConsoleCtrlHandler(ConsoleCtrlDelegate handlerRoutine, bool add);
         static bool HandlerRoutine(int ctrlType)
         {
+            Console.WriteLine($"bye");
             cts.Cancel();
             HookManager.UnsubscribeWindowEvents();
             EnergyManager.RecoverAllUserProcesses();
