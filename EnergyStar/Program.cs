@@ -13,7 +13,7 @@ namespace EnergyStar
             cts.Cancel();
             HookManager.UnsubscribeWindowEvents();
             EnergyManager.RecoverAllUserProcesses();
-            return false;
+            return true;
         }
         
         static CancellationTokenSource cts = new CancellationTokenSource();
