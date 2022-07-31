@@ -11,7 +11,7 @@ namespace EnergyStar
 {
     internal class Program
     {   
-        delegate bool ControlCtrlDelegate(int CtrlType);  
+        public delegate bool ConsoleCtrlDelegate(int CtrlType);  
         [DllImport("kernel32.dll")]
         private static extern bool SetConsoleCtrlHandler(ConsoleCtrlDelegate handlerRoutine, bool add);
         private const int CtrlCEvent = 0;//CTRL_C_EVENT = 0;//一个Ctrl+C的信号被接收，该信号或来自键盘，或来自GenerateConsoleCtrlEvent    函数   
