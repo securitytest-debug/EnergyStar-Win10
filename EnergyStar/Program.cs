@@ -1,4 +1,5 @@
 using EnergyStar.Interop;
+using System.Runtime.InteropServices;
 
 namespace EnergyStar
 {
