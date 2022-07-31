@@ -56,7 +56,7 @@ namespace EnergyStar
                     await houseKeepingTimer.WaitForNextTickAsync(cts.Token);
                     EnergyManager.ThrottleAllUserBackgroundProcesses();
                 }
-                catch (TaskCanceledException)
+                catch (OperationCanceledException)
                 {
                     break;
                 }
